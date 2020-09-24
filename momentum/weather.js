@@ -13,7 +13,7 @@ function getWeather(lat, lng) {
     .then(function (json) {
       const temperature = json.main.temp;
       const weathername = json.weather[0].main;
-      weather.innerText = `${parseInt(temperature)}°C ${weathername}`;
+      weather.innerText = `${parseInt(temperature)}°C /  ${weathername}`;
     });
 }
 //"main":{"temp":17.64,"feels_like":18.07,"temp_min":17,"temp_max":19,"pressure":1018,"humidity":72}
