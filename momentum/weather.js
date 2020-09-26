@@ -11,9 +11,12 @@ function getWeather(lat, lng) {
       return response.json();
     })
     .then(function (json) {
-      const temperature = json.main.temp;
+      const minTemperature = json.main.temp_min;
+      const maxTemperature = json.main.temp_max;
       const weathername = json.weather[0].main;
-      weather.innerText = `${parseInt(temperature)}°C /  ${weathername}`;
+      weather.innerText = `${parseInt(minTemperature)}~${parseInt(
+        maxTemperature
+      )}°C /  ${weathername}`;
     });
 }
 //"main":{"temp":17.64,"feels_like":18.07,"temp_min":17,"temp_max":19,"pressure":1018,"humidity":72}

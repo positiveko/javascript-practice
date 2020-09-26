@@ -1,7 +1,7 @@
 const clockContainer = document.querySelector('.clock'),
   clockTitle = clockContainer.querySelector('.title');
 
-const title = document.querySelector('#clickEffect1');
+const title = document.querySelector('#clickEffect');
 const CLICKED_CLASS = 'clicked';
 
 function getTime() {
