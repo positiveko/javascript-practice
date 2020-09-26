@@ -1,7 +1,9 @@
 const clockContainer = document.querySelector('.clock'),
   clockTitle = clockContainer.querySelector('.title');
 
-const title = document.querySelector('#clickEffect');
+const title = document.querySelectorAll(
+  '#clickEffect1, #clickEffect2, #clickEffect3'
+);
 const CLICKED_CLASS = 'clicked';
 
 function getTime() {
@@ -15,12 +17,16 @@ function getTime() {
 }
 
 function handleClick() {
-  title.classList.toggle(CLICKED_CLASS);
+  for (let i = 0; i < title.length; i++) {
+    title[i].classList.toggle(CLICKED_CLASS);
+  }
 }
 
 function init() {
   getTime();
   setInterval(getTime, 1000);
-  title.addEventListener('click', handleClick);
+  for (let i = 0; i < title.length; i++) {
+    title[i].addEventListener('click', handleClick);
+  }
 }
 init();
