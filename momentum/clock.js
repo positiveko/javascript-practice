@@ -17,16 +17,16 @@ function getTime() {
 }
 
 function handleClick() {
-  for (let i = 0; i < title.length; i++) {
-    title[i].classList.toggle(CLICKED_CLASS);
-  }
+  title.forEach((item) => {
+    item.classList.toggle(CLICKED_CLASS);
+  });
 }
 
 function init() {
   getTime();
   setInterval(getTime, 1000);
-  for (let i = 0; i < title.length; i++) {
-    title[i].addEventListener('click', handleClick);
-  }
+  title.forEach((item) => {
+    item.addEventListener('click', handleClick);
+  });
 }
 init();
