@@ -1,3 +1,4 @@
+// html id값 선언 우선
 const toDoForm = document.querySelector('.toDoForm'),
   toDoInput = toDoForm.querySelector('input'),
   toDoList = document.querySelector('.toDoList');
@@ -6,6 +7,12 @@ const TODOS_LS = 'toDos';
 
 let toDos = [];
 
+// localStorage에 string 형태로 저장
+function saveToDos() {
+  localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
+}
+
+// 클릭 시 toDos에서 li 지우기
 function deleteToDo(event) {
   const btn = event.target;
   const li = btn.parentNode;
@@ -17,10 +24,7 @@ function deleteToDo(event) {
   saveToDos();
 }
 
-function saveToDos() {
-  localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
-}
-
+// 리스트 추가와 delBtn 만들기
 function paintToDo(text) {
   const delBtn = document.createElement('button');
   const li = document.createElement('li');
@@ -41,6 +45,7 @@ function paintToDo(text) {
   saveToDos();
 }
 
+// input 디폴트 해제, paintToDo 실행 및 인풋바 새로고침
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
@@ -48,12 +53,16 @@ function handleSubmit(event) {
   toDoInput.value = '';
 }
 
+// localStorage에 저장된 todos 불러오기
 function loadTodos() {
   const loadedToDos = localStorage.getItem(TODOS_LS);
+  console.log(loadedToDos);
   if (loadedToDos !== null) {
     const parsedToDos = JSON.parse(loadedToDos);
+    console.log(parsedToDos);
     parsedToDos.forEach(function (toDo) {
       paintToDo(toDo.text);
+      console.log(toDo.text);
     });
   }
 }
