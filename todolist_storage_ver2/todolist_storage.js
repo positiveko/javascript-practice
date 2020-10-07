@@ -25,6 +25,17 @@ function deleteToDo(event) {
   saveToDos();
 }
 
+// 리스트 클릭하면 체크 심볼 추가
+toDoList.addEventListener(
+  'click',
+  function (event) {
+    if (event.target.tagName === 'LI') {
+      event.target.classList.toggle('checked');
+    }
+  },
+  false
+);
+
 // handleSubmit으로 받은 value로 리스트 추가와 동시에 delBtn 생성
 function paintToDo(text) {
   const li = document.createElement('li');

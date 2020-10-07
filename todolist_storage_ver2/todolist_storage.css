@@ -3,7 +3,7 @@
 }
 
 h2 {
-  font-weignt: bold;
+  font-weight: bold;
   font-family: sans-serif;
   text-align: center;
   color: midnightblue;
@@ -22,13 +22,13 @@ h2 {
 input,
 textarea {
   width: 100%;
+  margin: 0 0 10px 10px;
   border: none;
   border-radius: 20px;
   outline: none;
   background: #ecf0f1;
   padding: 10px;
   opacity: 0.8;
-  margin-bottom: 10px;
 }
 
 .addBtn {
@@ -80,4 +80,23 @@ button {
   padding: 0px;
   font-size: 17px;
   cursor: pointer;
+}
+
+ul li.checked {
+  background: #888;
+  color: #223555;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  content: ' ';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 2px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
 }

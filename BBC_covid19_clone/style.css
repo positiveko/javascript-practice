@@ -1,0 +1,75 @@
+html {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+body {
+  margin: 0;
+}
+div,
+section,
+header,
+footer,
+p,
+h1,
+h2 {
+  /* 내부 padding과 boader가 포함이 되도록 */
+  box-sizing: border-box;
+}
+a {
+  color: royalblue;
+}
+img {
+  /* 반응형으로 컨테이너가 줄어들 때 같이 줄어들도록 */
+  max-width: 100%;
+  height: auto;
+}
+.global-width {
+  /* 반응형으로 만들기 위해 max로 설정 */
+  max-width: 620px;
+  /* 중앙정렬 */
+  margin: 0 auto;
+  /* 모바일 환경에서 창에 여백을 주기 위해 */
+  padding: 0 1rem;
+}
+.scroll-graphic {
+  /* 스크롤하더라도 모든 이미지들의 컨테이너를 top 0 위치에 고정 */
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.graphic-item {
+  /* 모든 그림을 같은 위치에 배치하기 위해 */
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* 그림들을 가운데 정렬하여 화면을 꽉 채우도록 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 0.5s;
+}
+.visible {
+  /* class에 visible이 들어갔을 때 */
+  opacity: 1;
+}
+.scene-img {
+  /* 뷰포트 사이즈에 맞게 자동 조정 */
+  max-height: 100vh;
+}
+.scroll-text {
+  /* position의 디폴트는 static. 값 부여하면 z-index를 갖는다 */
+  position: relative;
+  padding-bottom: 1px;
+}
+.step {
+  /* 창 사이즈의 60% 높이 */
+  margin-bottom: 60vh;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  /* 배경은 투명하게 처리 */
+  background: rgba(255, 255, 255, 0.8);
+  /* 태두리는 검은색으로 30%, 좌0 탑0 위치에 블러3px 퍼지게 */
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 3px;
+}
