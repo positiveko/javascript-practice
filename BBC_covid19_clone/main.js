@@ -1,14 +1,26 @@
-// 전역변수 사용을 피하기 위해 즉시실행 익명함수를 만든다
 (() => {
   const stepElems = document.querySelectorAll('.step');
   const graphicElems = document.querySelectorAll('.graphic-item');
-  // visible 클래스가 붙은 graphic-item 선언 후 맨 처음에 visible 붙임
   let currentItem = graphicElems[0];
-  // data 속성 (data-로 시작) DOM에 저장한다.
-  //   모든 step과 graphic-item에 data-index='$' 추가
+  let ioIndex;
+
+  // 무의미하게 전체 elem을 for문으로 돌릴 필요 없이
+  // intersection observer 활용
+  // 현재 화면에서 보이는 요소인지 아닌지 구별
+  // 요소가 보이거나 사라질 때 콜백함수가 실행
+  const io = new IntersectionObserver((entries, observer) => {
+    // console.log(entries[0].target.dataset.index);
+    // 현재 보이고 사라지는 elem의 index가 표시
+    ioIndex = entries[0].target.dataset.index * 1;
+    // 하지만 console창에 검정색으로 뜨는 것 스트링이라는 것
+    // 따라서 숫자로 바꾸기 위해 * 1을 해준다
+    // 콘솔에 파란색으로 뜬다
+    // console.log(ioIndex);
+  });
+
   for (let i = 0; i < stepElems.length; i++) {
-    // stepElems[i].setAttribute('data-index', i);
-    // 혹은 아래와 같이 쓴다
+    // observer가 관찰하도록 등록
+    io.observe(stepElems[i]);
     stepElems[i].dataset.index = i;
     graphicElems[i].dataset.index = i;
   }
@@ -24,30 +36,24 @@
   window.addEventListener('scroll', () => {
     let step;
     let boundingRect;
-    for (let i = 0; i < stepElems.length; i++) {
+
+    // for (let i = 0; i < stepElems.length; i++) {
+    for (let i = ioIndex - 1; i < ioIndex + 2; i++) {
       step = stepElems[i];
+      // 첫 elem의 인덱스가 0이므로 -1이 나와 에러가 남
+      // 따라서 if문으로 step의 값이 없을 때 continue 하도록 처리
+      if (!step) continue;
       boundingRect = step.getBoundingClientRect();
-      //   console.log(boundingRect.top);
+
       if (
         boundingRect.top > window.innerHeight * 0.1 &&
         boundingRect.top < window.innerHeight * 0.8
       ) {
-        // console.log(step.dataset.index);
-        // graphicElems[step.dataset.index].classList.add('visible');
-        // 하지만 중첩되어 보일 것. 따라서 기존의 것을 삭제하기 위해
-        // currentItem 변수를 새로 선언한다
-        // 처음에는 currentItem이 없으므로 타입에러 발생
-        // 따라서 if문에 넣어 currentItem이 있으면 지우도록 수정한다
-        // if (currentItem) {
         inactivate();
-        // } activate 활용으로 currentItem이 존재하는지 체크할 필요 없음
         currentItem = graphicElems[step.dataset.index];
         activate();
       }
     }
   });
-  // 첫 번째 사진을 먼저 보여주기 위해 currentItem = graphicElem[0]을 주고
-  // active()와 inactivate()을 따로 분리해내어
-  // 이벤트 리스너 뒤에 새롭게 실행해준다.
   activate();
 })();
