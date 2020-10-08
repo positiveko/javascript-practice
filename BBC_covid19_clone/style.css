@@ -31,6 +31,8 @@ img {
   padding: 0 1rem;
 }
 .scroll-graphic {
+  /* 새가 날아가도 가로 스크롤 없애기 */
+  overflow-x: hidden;
   /* 스크롤하더라도 모든 이미지들의 컨테이너를 top 0 위치에 고정 */
   position: sticky;
   top: 0;
@@ -49,6 +51,7 @@ img {
   height: 100%;
   opacity: 0;
   transition: 0.5s;
+  will-change: opacity;
 }
 .visible {
   /* class에 visible이 들어갔을 때 */
@@ -72,4 +75,23 @@ img {
   background: rgba(255, 255, 255, 0.8);
   /* 태두리는 검은색으로 30%, 좌0 탑0 위치에 블러3px 퍼지게 */
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 3px;
+}
+.bird {
+  position: absolute;
+  left: 0;
+  /* 바닥을 기준으로 70% */
+  bottom: 70%;
+  width: 100px;
+  /* transition 기본 가속도를 없애기 위해 linear, 0.5초 지연 */
+  /* 0.5초 후에 1.5초 동안 애니메이션  */
+  transition: 1.5s 0.5s linear;
+  /* transform: translateX(-100%); */
+}
+[data-index='5'] .bird {
+  left: 30%;
+  bottom: 30%;
+}
+.global-footer {
+  padding: 2rem 0;
+  text-align: center;
 }

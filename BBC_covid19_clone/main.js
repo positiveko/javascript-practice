@@ -1,47 +1,68 @@
 (() => {
+  const actions = {
+    birdFlies(key) {
+      if (key) {
+        document.querySelector(
+          '[data-index="2"] .bird'
+        ).style.transform = `translateX(${window.innerWidth}px)`;
+      } else {
+        document.querySelector(
+          '[data-index="2"] .bird'
+        ).style.transform = `translateX(-100%)`;
+      }
+    },
+    birdFlies2(key) {
+      if (key) {
+        document.querySelector(
+          '[data-index="5"] .bird'
+        ).style.transform = `translate(${window.innerWidth}px, ${
+          -window.innerHeight * 0.7
+        }px)`;
+      } else {
+        document.querySelector(
+          '[data-index="5"] .bird'
+        ).style.transform = `translateX(-100%)`;
+      }
+    },
+  };
+
   const stepElems = document.querySelectorAll('.step');
   const graphicElems = document.querySelectorAll('.graphic-item');
   let currentItem = graphicElems[0];
   let ioIndex;
 
-  // 무의미하게 전체 elem을 for문으로 돌릴 필요 없이
-  // intersection observer 활용
-  // 현재 화면에서 보이는 요소인지 아닌지 구별
-  // 요소가 보이거나 사라질 때 콜백함수가 실행
   const io = new IntersectionObserver((entries, observer) => {
-    // console.log(entries[0].target.dataset.index);
-    // 현재 보이고 사라지는 elem의 index가 표시
     ioIndex = entries[0].target.dataset.index * 1;
-    // 하지만 console창에 검정색으로 뜨는 것 스트링이라는 것
-    // 따라서 숫자로 바꾸기 위해 * 1을 해준다
-    // 콘솔에 파란색으로 뜬다
-    // console.log(ioIndex);
   });
 
   for (let i = 0; i < stepElems.length; i++) {
-    // observer가 관찰하도록 등록
     io.observe(stepElems[i]);
     stepElems[i].dataset.index = i;
     graphicElems[i].dataset.index = i;
   }
 
-  function activate() {
+  function activate(action) {
     currentItem.classList.add('visible');
+    if (action) {
+      // birdFlies에 해당하는 actions의 메소드 호출
+      // 객체 메소드 호출할 때 . 도 가능하지만 []도 가능
+      actions[action](true);
+    }
   }
 
-  function inactivate() {
+  function inactivate(action) {
     currentItem.classList.remove('visible');
+    if (action) {
+      actions[action](false);
+    }
   }
 
   window.addEventListener('scroll', () => {
     let step;
     let boundingRect;
 
-    // for (let i = 0; i < stepElems.length; i++) {
     for (let i = ioIndex - 1; i < ioIndex + 2; i++) {
       step = stepElems[i];
-      // 첫 elem의 인덱스가 0이므로 -1이 나와 에러가 남
-      // 따라서 if문으로 step의 값이 없을 때 continue 하도록 처리
       if (!step) continue;
       boundingRect = step.getBoundingClientRect();
 
@@ -51,7 +72,8 @@
       ) {
         inactivate();
         currentItem = graphicElems[step.dataset.index];
-        activate();
+        //현재 활성화된 아이템의 데이터셋의 액션을 가져옴
+        activate(currentItem.dataset.action);
       }
     }
   });
