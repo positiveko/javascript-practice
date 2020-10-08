@@ -1,7 +1,8 @@
 // html id 정리
 const toDoForm = document.querySelector('.toDoForm'),
   toDoInput = toDoForm.querySelector('input'),
-  toDoList = document.querySelector('.toDoList');
+  toDoList = document.querySelector('.toDoList'),
+  addBtn = document.querySelector('addBtn');
 
 //function loadToDos
 const TODOS_LS = 'toDos';
@@ -38,6 +39,10 @@ toDoList.addEventListener(
 
 // handleSubmit으로 받은 value로 리스트 추가와 동시에 delBtn 생성
 function paintToDo(text) {
+  if (text.trim() === '') {
+    alert('Write something!');
+    return;
+  }
   const li = document.createElement('li');
   const delBtn = document.createElement('button');
   delBtn.innerText = 'X';
@@ -61,8 +66,15 @@ function paintToDo(text) {
 // toDoForm에서 제출하면 실행하는 이벤트
 function handleSubmit(event) {
   event.preventDefault();
-  const currentValue = toDoInput.value;
-  paintToDo(currentValue);
+  const text = toDoInput.value;
+  paintToDo(text);
+  toDoInput.value = '';
+}
+
+// addBtn 기능 추가
+function addSubmit() {
+  const text = toDoInput.value;
+  paintToDo(text);
   toDoInput.value = '';
 }
 
@@ -83,6 +95,8 @@ function loadToDos() {
 function init() {
   loadToDos();
   toDoForm.addEventListener('submit', handleSubmit);
+  // addBtn.addEventListener('click', handleSubmit);
+  // toDoForm.addEventListener('click', addSubmit);
 }
 
 init();
