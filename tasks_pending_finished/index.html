@@ -3,21 +3,27 @@
   <head>
     <title>todolist</title>
     <link rel="stylesheet" href="src/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <meta charset="UTF-8" />
   </head>
   <body>
-    <h2>Tasks</h2>
-    <form action="" class="todoForm">
-    <input type="text" class="todoInput" placeholder="Add tasks">
-  </form>
-    <div class="pending">
-      <p>Pending</p>
-      <ul class="pendingList"></ul>
+    <div class="wrapper">
+      <h2>Tasks</h2>
+      <form action="" class="todoForm">
+        <input type="text" class="todoInput" placeholder="Add tasks">
+      </form>
+      <div class="todoList">
+        <div class="pending">
+          <p>Pending</p>
+          <ul class="pendingList"></ul>
+        </div>
+        <div class="finished">
+          <p>Finished</p>
+          <ul class="finishedList"></ul>
+        </div>
+      </div>
     </div>
-    <div class="finished">
-      <p>Finished</p>
-      <ul class="finishedList"></ul>
-    </div>
+    
     <script src="src/index.js"></script>
   </body>
 </html>
