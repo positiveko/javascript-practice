@@ -1,7 +1,8 @@
+// <⚠️ DONT DELETE THIS ⚠️>
+// import "./styles.css";
+// <⚠️ /DONT DELETE THIS ⚠️>
 
-
-const pending = document.querySelector('.pending'),
-pendingList = document.querySelector('.pendingList'),
+const pendingList = document.querySelector('.pendingList'),
 finishedList = document.querySelector('.finishedList'),
 todoInput = document.querySelector('.todoInput'),
 todoForm = document.querySelector('.todoForm');
@@ -16,12 +17,12 @@ const finished_LS = 'FINISHED';
 function handleSubmit(event) {
     event.preventDefault();
     const text = todoInput.value;
-    paintToDo(text);
+    paintToPending(text, 0);
     todoInput.value='';
 }
 
 // value를 li로 만들기
-function paintToDo(text) {
+function paintToPending(text, originalId) {
     if (text.trim() === '') {
         alert('Write something!');
         return;
@@ -32,10 +33,14 @@ function paintToDo(text) {
     checkBtn.innerText = '✅';
     checkBtn.addEventListener('click', finishToDo);
     delBtn.innerText = '❎';
-    delBtn.addEventListener('click', deleteToDo);
+    delBtn.addEventListener('click', deletePending);
     const span = document.createElement('span');
-    // new Date().getDate() 하면 계속 새로고침 에러
-    const newId = PENDING.length + 1;
+    
+    //const newId = PENDING.length + 1;
+    let newId = new Date().getTime();
+    if(originalId != 0){
+        newId = originalId;
+    }
     span.innerText = text;
     li.appendChild(span);
     li.appendChild(checkBtn);
@@ -50,47 +55,87 @@ function paintToDo(text) {
     savePending();
 }
 
+function paintToFinished(text, originalId) {
+    const li = document.createElement('li');
+    const checkBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    checkBtn.innerText = '⏪';
+    checkBtn.addEventListener('click', reopenToDo);
+    delBtn.innerText = '❎';
+    delBtn.addEventListener('click', deleteFinished);
+    const span = document.createElement('span');
+    span.innerText = text;
+    //const newId = FINISHED.length + 1;
+    
+    let newId = new Date().getTime();
+    if(originalId != 0){
+        newId = originalId;
+    }
+    li.appendChild(span);
+    li.appendChild(checkBtn);
+    li.appendChild(delBtn);
+    finishedList.appendChild(li);
+    li.id = newId;
+    const todoObj = {
+        text: text,
+        id: newId
+    };
+    FINISHED.push(todoObj);
+    saveFinished();
+}
+
+function deleteFromPending(li){
+    const cleanPending = PENDING.filter((toDo) => {
+        return toDo.id !== parseInt(li.id);
+    });
+    PENDING = cleanPending;
+    savePending();
+    pendingList.removeChild(li);
+}
+
+function deleteFromFinished(li){
+    const cleanFinished = FINISHED.filter((toDo) => {
+        return toDo.id !== parseInt(li.id);
+    });
+    FINISHED = cleanFinished;
+    saveFinished();
+    finishedList.removeChild(li);
+}
+
 // li를 pending에서 finished로 보내기
 function finishToDo(event) {
     const checkBtn = event.target;
     const li = checkBtn.parentNode;
-    pendingList.removeChild(li);
-    finishedList.appendChild(li);
-    checkBtn.innerText = '⏪';
-    checkBtn.addEventListener('click', reopenToDo);
-    const cleanToDo = PENDING.filter((toDo) => {
-        return toDo.id !== parseInt(li.id);
-    });
-    PENDING = cleanToDo;
-    const toDo = li.querySelector('span').innerText;
-    id = li.id;
-    const todoObj = {
-        text: toDo,
-        id: id
-    };
-    FINISHED.push(todoObj);
-    savePending();
-    saveFinished();
+    const text = li.querySelector('span').innerText;
+    
+    deleteFromPending(li);
+    paintToFinished(text, 0);
 }
 
+// li를 finished에서 pending로 보내기
 function reopenToDo(event) {
     const checkBtn = event.target;
     const li = checkBtn.parentNode;
-    finishedList.removeChild(li);
-    pendingList.appendChild(li);
-    checkBtn.innerText = '✅';
-    checkBtn.addEventListener('click', finishToDo);
+    const text = li.querySelector('span').innerText;
+
+    deleteFromFinished(li);
+    paintToPending(text, 0);
 }
 
-function deleteToDo(event) {
+function deletePending(event) {
     const delBtn = event.target;
+    console.log(delBtn);
     const li = delBtn.parentNode;
-    pendingList.removeChild(li);
-    const cleanToDo = PENDING.filter((toDo) => {
-        return toDo.id !== parseInt(li.id);
-    });
-    PENDING = cleanToDo;
-    savePending();
+    deleteFromPending(li);
+}
+
+function deleteFinished(event) {
+    const delBtnn = event.target;
+    console.log(delBtnn);
+
+    const li = delBtnn.parentNode;
+
+    deleteFromFinished(li);
 }
 
 
@@ -107,7 +152,7 @@ function loadToPending() {
     if (loadedToPending !== null) {
         const parsedToDo = JSON.parse(loadedToPending);
         parsedToDo.forEach((toDo) => {
-            paintToDo(toDo.text);
+            paintToPending(toDo.text, toDo.id);
         });
     }
 }
@@ -116,7 +161,7 @@ function loadToFinished() {
     if (loadedToFinished !== null) {
         const parsedToDo = JSON.parse(loadedToFinished);
         parsedToDo.forEach((toDo) => {
-            paintToDo(toDo.text);
+            paintToFinished(toDo.text, toDo.id);
         });
     }
 }
