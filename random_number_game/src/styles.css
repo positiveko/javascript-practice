@@ -1,0 +1,47 @@
+body {
+  font-family: sans-serif;
+  width: 600px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.gameSetting {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.setRangeNum {
+  margin-left: 0.3em;
+}
+
+#inputRange {
+  margin-top: 1rem;
+  width: 80%;
+  cursor: pointer;
+}
+
+.playGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.inputNum {
+  margin: 0 0.3em 0 0.3em;
+}
+
+.gameState {
+  display: flex;
+  justify-content: center;
+}
+.gameResult {
+  font-weight: 600;
+  font-size: 2em;
+  margin: 0;
+}

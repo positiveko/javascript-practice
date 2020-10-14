@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Number Game</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+
+  <body>
+    <h2 class="title">Random Number Game</h2>
+    <div class="gameSetting">
+      <div>Generate a number between 0 and </div>
+      <div class="setRangeNum">100</div>
+    </div>
+      <input type="range" list="range" id="inputRange" min="0" max="200" step="5">
+      <datalist id="range">
+        <option value="0"></option>
+        <option value="10"></option>
+        <option value="20"></option>
+        <option value="30"></option>
+        <option value="40"></option>
+        <option value="50"></option>
+        <option value="60"></option>
+        <option value="70"></option>
+        <option value="80"></option>
+        <option value="90"></option>
+        <option value="100"></option>
+        <option value="110"></option>
+        <option value="120"></option>
+        <option value="130"></option>
+        <option value="140"></option>
+        <option value="150"></option>
+        <option value="160"></option>
+        <option value="170"></option>
+        <option value="180"></option>
+        <option value="190"></option>
+        <option value="200"></option>
+      </datalist>
+    
+    <div class="playGame">
+      <p>Guess the number:</p>
+      <form action="" class="formNum">
+        <input type="number" class="inputNum">
+        <button class="playBtn">Play!</button>
+      </form>
+    </div>
+    <div class="gameState">
+      <div class="userSelect"></div>
+      <div class="machineSelect"></div>
+    </div>
+      <p class="gameResult"></p>
+
+
+    <script src="src/index.js"></script>
+  </body>
+</html>

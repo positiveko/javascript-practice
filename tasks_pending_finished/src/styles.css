@@ -12,8 +12,6 @@ body {
 .wrapper {
   background-color: #eee8da;
   max-width: 500px;
-  /* min-width: 50vw */
-  /* display: grid; */
   border: 1px var(--border-color) solid;
 }
 
