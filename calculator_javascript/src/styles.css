@@ -22,6 +22,11 @@ body {
   background-color: orange;
 }
 
-button {
-  color: orange;
+.operatorBtn {
+  background-color: orange;
+}
+
+.numBtn,
+.equalBtn {
+  background-color: darkgray;
 }
