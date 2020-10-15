@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+}
+
+.wrapper {
+  width: 400px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 3rem);
+  border: 1px solid black;
+}
+
+.wrapper :nth-child(1) {
+  grid-column-end: span 3;
+}
+
+.wrapper :nth-child(15) {
+  grid-column-start: span 2;
+}
+
+.wrapper .calResult {
+  background-color: orange;
+}
+
+button {
+  color: orange;
+}
