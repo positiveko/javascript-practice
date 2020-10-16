@@ -15,7 +15,7 @@ body {
 }
 
 .wrapper :nth-child(15) {
-  grid-column-start: span 2;
+  grid-column-end: span 2;
 }
 
 .wrapper .calResult {
