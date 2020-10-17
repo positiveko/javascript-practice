@@ -1,4 +1,3 @@
-
 const calResult = document.querySelector(".calResult");
 // let calculating, operating, isNewInput;
 let calculating = 0,
@@ -59,7 +58,7 @@ function equal() {
     calculating = nums;
   } else {
     if (!isNewInput) {
-     if (operating == "+") {
+      if (operating == "+") {
         calculating += nums;
         } else if (operating == "-") {
         calculating -= nums;
