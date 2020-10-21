@@ -1,4 +1,9 @@
-const calResult = document.querySelector(".calResult");
+const calResult = document.querySelector(".calResult"),
+    clearNum = document.querySelector(".cancelBtn"),
+    equalBtn = document.querySelector(".equalBtn"),
+    numBtn = Array.from(document.querySelectorAll(".numBtn")),
+    operatorBtn = Array.from(document.querySelectorAll(".operatorBtn"));
+
 // let calculating, operating, isNewInput;
 let calculating = 0,
 operating = "",
@@ -76,3 +81,26 @@ function equal() {
   operating = "";
   isNewInput = true;
 }
+
+// 최대 자릿수 넘어가면 e 포함한 표현숫자로 바꾸기
+
+
+// addEventlistener 없애고 js로만 구현하기
+numBtn.forEach((num) => {
+  num.addEventListener('click', function (e) {
+    let num = e.target.innerText;
+    inputNum(num);
+  }
+)});
+operatorBtn.forEach((operator) => {
+  operator.addEventListener('click', function (e) {
+    let operator = e.target.innerText;
+    calculate(operator);
+  });
+});
+equalBtn.addEventListener('click', equal);
+clearNum.addEventListener('click', clearResult);
+
+
+
+
